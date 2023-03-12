@@ -1,0 +1,43 @@
+
+.components-base-control__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.components-text-control__input {
+    width: 30rem !important;
+}
+
+.imagecontrol {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+.imagecontrol .components-button:first-child {
+    display: inline-block;
+    text-align: center !important;
+    flex-grow: 1;
+}
+
+.imagecontrol-image {
+    width: 150px;
+    height: 150px;
+    border: #757575 solid 1px;
+}
+.imagecontrol-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+img.imagecontrol-image {
+    box-sizing: content-box;
+    object-fit: cover;
+}
+
+.imagecontrol-controls {
+    display: flex;
+    width: 152px;
+}
