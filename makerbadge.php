@@ -14,6 +14,48 @@
  */
 
 
+function makerbadge__verify_data($data) {
+    $allowedData = [
+        'status'   => ['type' => 'string',  'sanitize' => 'sanitize_text_field', 'allowedValues' => ['', 'desktop', 'all']],
+        'text'     => ['type' => 'string',  'sanitize' => 'sanitize_text_field'],
+        'username' => ['type' => 'string',  'sanitize' => 'sanitize_text_field'],
+        'url'      => ['type' => 'string',  'sanitize' => 'sanitize_url'],
+        'image'    => ['type' => 'integer', 'sanitize' => function($value) { return wp_attachment_is_image( $value ) ? $value : 0; }],
+    ];
+
+    $verifiedData = [];
+    foreach ($allowedData as $key => $field) {
+
+        // Checks if data value exists
+        if (!isset($data[$key])) {
+            continue;
+        }
+
+        // Checks if data value is of the correct type
+        if (gettype($data[$key]) !== $field['type']) {
+            continue;
+        }
+
+        // Sanitizes data value
+        $value = call_user_func($field['sanitize'], $data[$key]);
+
+        // Checks if data value has content
+        if (empty($value)) {
+            continue;
+        }
+
+        // Checks if data value is allowed
+        if (isset($field['allowedValues']) && !in_array($value, $field['allowedValues'])) {
+            continue;
+        }
+
+        $verifiedData[$key] = $value;
+    }
+
+    return $verifiedData;
+}
+
+
 add_action( 'admin_menu', function() {
     add_options_page(
         'Maker Badge', // Der Text, der in der Browser-Registerkarte angezeigt wird
@@ -62,7 +104,7 @@ add_action('init', function() {
             return;
         }
         
-        echo '<' . (isset($data->url) ? 'a href="' . esc_attr($data->url) . '" target="_blank"' : 'div') . ' class="makerbadge status-' . $data->status . '">';
+        echo '<' . (isset($data->url) ? 'a href="' . esc_attr($data->url) . '" target="_blank"' : 'div') . ' class="makerbadge status-' . esc_attr($data->status) . '">';
         echo isset($data->image) ? wp_get_attachment_image($data->image) : '';
         echo '<span>' . (isset($data->text) ? esc_html($data->text) : '') . (isset($data->username) ? ' <strong>' . esc_html($data->username) . '</strong>' : '') . '</span>';
         echo isset($data->url) ? '</a>' : '</div>';
@@ -71,9 +113,9 @@ add_action('init', function() {
 
 
 add_action('wp_ajax_makerbadge_save', function() {
-    $data = stripslashes_deep($_POST['data']);
-    update_option('makerbadge_settings', $data);
-    echo get_option('makerbadge_settings', '{}');
-    exit;
+    $dataJson = json_encode(makerbadge__verify_data(json_decode(stripslashes_deep($_POST['data']), true)));
+    update_option('makerbadge_settings', $dataJson);
+    echo $dataJson;
+    wp_die();
 });
 
