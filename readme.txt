@@ -3,8 +3,8 @@ Contributors: ehtmlu
 Donate link: https://www.paypal.com/donate/?hosted_button_id=2G6L8NWVXZ4T4
 Tags: maker badge, maker, indie hacker
 Requires at least: 6.0.0
-Tested up to: 6.1.1
-Stable tag: 1.0.0
+Tested up to: 6.2.0
+Stable tag: 1.0.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -25,5 +25,8 @@ To use the Maker Badge plugin, simply install and activate it on your WordPress 
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.1 - 2023-04-09 =
+* Small style fixes
+
+= 1.0.0 - 2023-03-24 =
 * Initial release
