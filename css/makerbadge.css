@@ -1,23 +1,25 @@
 
 .makerbadge {
+    font-size: initial;
     position: fixed;
-    right: 2rem;
+    right: 2em;
     bottom: 0;
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 1em 1em 0 0;
     background: #fff;
-    padding: 1rem;
+    padding: 1em;
     display: flex;
-    gap: 1rem;
+    gap: 1em;
     align-items: center;
     text-decoration: none;
-    box-shadow: 0 0 .5rem rgba(0, 0, 0, .2);
+    box-shadow: 0 0 .5em rgba(0, 0, 0, .2);
 }
 
 .makerbadge > img {
+    font-size: inherit;
     border-radius: 50%;
     background: #ccc;
-    width: 2rem;
-    height: 2rem;
+    width: 2em;
+    height: 2em;
 }
 
 @media (max-width: 599px) {

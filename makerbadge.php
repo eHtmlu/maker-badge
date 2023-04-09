@@ -106,7 +106,7 @@ add_action('init', function() {
         
         echo '<' . (isset($data->url) ? 'a href="' . esc_attr($data->url) . '" target="_blank"' : 'div') . ' class="makerbadge status-' . esc_attr($data->status) . '">';
         echo isset($data->image) ? wp_get_attachment_image($data->image) : '';
-        echo '<span>' . (isset($data->text) ? esc_html($data->text) : '') . (isset($data->username) ? ' <strong>' . esc_html($data->username) . '</strong>' : '') . '</span>';
+        echo isset($data->text) || isset($data->username) ? '<span>' . (isset($data->text) ? esc_html($data->text) : '') . (isset($data->username) ? ' <strong>' . esc_html($data->username) . '</strong>' : '') . '</span>' : '';
         echo isset($data->url) ? '</a>' : '</div>';
     });
 });
